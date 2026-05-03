@@ -13,7 +13,7 @@ public class JwtService {
     // Must be at least 32 bytes (256 bits) for HS256
     private final String SECRET = "supersecretkeysupersecretkey123456";
 
-    public String generateAccessToken(User user) {
+    public String generateAccessToken(User1 user) {
         return Jwts.builder()
                 .setSubject(user.getEmail())
                 .claim("role", user.getRole())

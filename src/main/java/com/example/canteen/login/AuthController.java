@@ -42,7 +42,7 @@ public class AuthController {
     private PasswordEncoder passwordEncoder;
 
     @PostMapping("/register")
-    public ResponseEntity<?> register(@RequestBody User user) {
+    public ResponseEntity<?> register(@RequestBody User1 user) {
 
         if (userRepository.findByEmail(user.getEmail()).isPresent()) {
             return ResponseEntity.status(403).body("Email already registered");
@@ -66,13 +66,13 @@ public class AuthController {
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody LoginRequest request,
             HttpServletResponse response) {
-        Optional<User> optionaluser = userRepository.findByEmail(request.getEmail());
+        Optional<User1> optionaluser = userRepository.findByEmail(request.getEmail());
 
         if (optionaluser.isEmpty()) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User Not Found");
         }
 
-        User user = optionaluser.get(); // ✔ now safe
+        User1 user = optionaluser.get(); // ✔ now safe
         if (!passwordEncoder.matches(request.getPassword(), user.getPassword())) {
             throw new RuntimeException("Invalid password");
         }
@@ -121,10 +121,10 @@ public class AuthController {
 
     @GetMapping("/get/{email}")
     public ResponseEntity<?> getUserByEmail(@PathVariable String email) {
-        Optional<User> user = userRepository.findByEmail(email);
+        Optional<User1> user = userRepository.findByEmail(email);
         if (user.isEmpty())
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User Not Found");
-        User userDetails = user.get();
+        User1 userDetails = user.get();
         return ResponseEntity.ok(userDetails);
 
     }
@@ -132,16 +132,16 @@ public class AuthController {
     @PutMapping("/update/{email}")
     public ResponseEntity<?> updateUser(
             @PathVariable String email,
-            @RequestBody User updatedUser) {
+            @RequestBody User1 updatedUser) {
 
-        Optional<User> optionalUser = userRepository.findByEmail(email);
+        Optional<User1> optionalUser = userRepository.findByEmail(email);
 
         if (optionalUser.isEmpty()) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND)
                     .body("User Not Found");
         }
 
-        User user = optionalUser.get();
+        User1 user = optionalUser.get();
 
         user.setName(updatedUser.getName());
         user.setPhone(updatedUser.getPhone());

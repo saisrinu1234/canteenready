@@ -14,7 +14,7 @@ public class RefreshToken {
     @Column(unique = true)
     private String token;
     @OneToOne
-    private User user;
+    private User1 user;
     
     private Instant expiryDate;
 
@@ -26,11 +26,11 @@ public class RefreshToken {
         this.token = token;
     }
 
-    public User getUser() {
+    public User1 getUser() {
         return user;
     }
 
-    public void setUser(User user) {
+    public void setUser(User1 user) {
         this.user = user;
     }
 

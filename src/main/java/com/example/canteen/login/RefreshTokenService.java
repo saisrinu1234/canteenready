@@ -13,7 +13,7 @@ public class RefreshTokenService {
     private RefreshTokenRepository refreshTokenRepository;
 
     // Create a refresh token for the user, deleting any existing one
-    public RefreshToken createRefreshToken(User user) {
+    public RefreshToken createRefreshToken(User1 user) {
         // 1️⃣ Delete old token if exists
         refreshTokenRepository.findByUser(user)
             .ifPresent(refreshTokenRepository::delete);
