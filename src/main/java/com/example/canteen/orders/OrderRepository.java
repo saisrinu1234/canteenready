@@ -6,6 +6,11 @@ import java.util.List;
 public interface OrderRepository extends JpaRepository<Order, Long> {
 
     List<Order> findByUserEmail(String userEmail);
-    List<Order> findByUserEmailAndServedFalse(String userEmail);
-    List<Order> findByServedFalse();
+
+    List<Order> findByUserEmailAndServedFalseAndPaymentStatus(
+            String userEmail,
+            String paymentStatus);
+
+    List<Order> findByServedFalseAndPaymentStatus(
+            String paymentStatus);
 }

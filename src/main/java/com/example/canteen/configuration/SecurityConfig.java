@@ -40,6 +40,8 @@ public class SecurityConfig {
                         .requestMatchers("/user/**").hasRole("USER")
                         .requestMatchers("/orders/admin/**").hasRole("ADMIN")
                         .requestMatchers("/orders/**").hasRole("USER")
+                        .requestMatchers("/payment/webhook").permitAll()
+                        .requestMatchers("/payment/refund/**").hasRole("ADMIN")
 
                         .anyRequest().authenticated());
 
@@ -60,7 +62,7 @@ public class SecurityConfig {
 
         CorsConfiguration configuration = new CorsConfiguration();
 
-        configuration.setAllowedOrigins(List.of("http://localhost:5173", "https://canteen-tau-blush.vercel.app"));
+        configuration.setAllowedOrigins(List.of("http://localhost:5173", "https://canteen-ui-five.vercel.app"));
         configuration.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
         configuration.setAllowedHeaders(List.of("*"));
         configuration.setAllowCredentials(true); // 🔥 REQUIRED for cookies

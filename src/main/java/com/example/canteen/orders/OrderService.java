@@ -11,21 +11,33 @@ public class OrderService {
     private OrderRepository orderRepository;
 
     public Order saveOrder(Order order) {
+        order.setPaymentStatus("PENDING");
 
         // 🔥 VERY IMPORTANT
+        // for (OrderItem item : order.getItems()) {
+        // item.setOrder(order);
+        // }
+        double total = 0;
+
+        // Calculate total amount
         for (OrderItem item : order.getItems()) {
+            total += item.getPrice() * item.getQty();
             item.setOrder(order);
         }
 
+        order.setTotalAmount(total);
         return orderRepository.save(order);
     }
 
     public List<Order> getPendingOrdersByUser(String email) {
-        return orderRepository.findByUserEmailAndServedFalse(email);
+        return orderRepository.findByUserEmailAndServedFalseAndPaymentStatus(
+                email,
+                "SUCCESS");
     }
 
     public List<Order> getAllPendingOrders() {
-        return orderRepository.findByServedFalse();
+        return orderRepository.findByServedFalseAndPaymentStatus(
+                "SUCCESS");
     }
 
     public Order markAsServed(Long id) {

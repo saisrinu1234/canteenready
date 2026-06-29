@@ -2,6 +2,7 @@ package com.example.canteen.login;
 
 import java.util.Date;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import io.jsonwebtoken.Jwts;
@@ -11,8 +12,9 @@ import io.jsonwebtoken.security.Keys;
 public class JwtService {
 
     // Must be at least 32 bytes (256 bits) for HS256
-    private final String SECRET = "supersecretkeysupersecretkey123456";
-
+    @Value("${jwt.secret}")
+    private String SECRET;
+    
     public String generateAccessToken(User1 user) {
         return Jwts.builder()
                 .setSubject(user.getEmail())
